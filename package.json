@@ -1,13 +1,13 @@
 {
   "name": "se-presentation-engine",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "NODE_ENV=development nodemon --exec ts-node src/app.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "start": "NODE_ENV=production node dist/app.ts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "format": "prettier --write src/**/*.ts"
   },
   "keywords": [],
@@ -15,16 +15,24 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
     "eslint": "^9.20.1",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^16.0.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "nodemon": "^3.1.9",
     "prettier": "^3.5.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
-  }
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.1"
+  },
+  "dependencies": {
+    "@types/ws": "^8.5.14",
+    "dotenv": "^16.4.7",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
