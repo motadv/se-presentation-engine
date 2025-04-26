@@ -42,7 +42,7 @@ export class WebSocketServiceImpl
   }
 
   onMessage(callback: (message: string) => void): void {
-    throw new Error("Method not implemented.");
+    this.messageCallback = callback;
   }
 
   update(data: EffectType[]): void {

@@ -54,14 +54,12 @@ export class DeviceControllerImpl
   }
 
   getCapabilities(): DeviceCapabilities[] {
-    const capabilities: Set<DeviceCapabilities> = new Set();
+    const capabilities: DeviceCapabilities[] = [];
     this.deviceRegistry.getAllDevices().forEach((device) => {
-      device.capabilities.forEach((capability) => {
-        capabilities.add(capability);
-      });
+      capabilities.push(...device.capabilities);
     });
 
-    return Array.from(capabilities);
+    return capabilities;
   }
 
   subscribeObserver(observer: Observer<EffectType[]>): void {

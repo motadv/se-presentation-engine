@@ -6,6 +6,11 @@ import { debug } from "./utils/debugConsole";
 import { RegisterSepeToGinga } from "./application/useCases/registerSepeToGinga.usecase";
 import { GingaApiServiceImpl } from "./infra/api/gingaApiServiceImpl";
 import { WebSocketServiceImpl } from "./infra/websocket/websocketServiceImpl";
+import { DeregisterSepeFromGingaUsecase } from "./application/useCases/deregisterSepeFromGinga.usecase";
+import {
+  WsRequestMessage,
+  WsResponseMessage,
+} from "./domain/websocket/wsMessages.interface";
 
 async function main() {
   const baseURL = process.env.HOST || "localhost";
@@ -29,12 +34,36 @@ async function main() {
   const gingaWS = new WebSocketServiceImpl();
   gingaWS.connect(url);
 
-  // Close the socket when the process is terminated
-  process.on("SIGINT", () => {
-    debug("Shutting down Sensory Effect Presentation Engine.");
-    if (gingaSocket) {
-      gingaSocket.close();
+  // Define how to handle incoming messages from GINGA CCWS
+  // Handle incoming messages from GINGA according to sepeccwsProtocol
+  gingaWS.onMessage((message) => {
+    const parsedMessage = JSON.parse(message) as WsRequestMessage;
+    // Effect Renderer Control Message
+    if ("action" in parsedMessage) {
+      deviceController.handleData(parsedMessage);
+
+      gingaWS.sendMessage({ ...parsedMessage, status: "success" });
     }
+    // Request for capabilities Message
+    else if ("capabilities" in parsedMessage) {
+      // const { capabilities } = parsedMessage; // Ignored for now and send all capabilities
+      deviceController.getCapabilities();
+
+      gingaWS.sendMessage({ capabilities: deviceController.getCapabilities() });
+    }
+  });
+
+  // Sets up SEPE for termination
+  // Close the socket when the process is terminated
+  process.on("SIGINT", async () => {
+    debug("Shutting down Sensory Effect Presentation Engine.");
+    if (gingaWS) {
+      gingaWS.disconnect();
+    }
+    await new DeregisterSepeFromGingaUsecase(gingaApiService).execute(handle);
+    debug("Unregistered device from GINGA.");
+    debug("Disconnected from WebSocket server.");
+    debug("Exiting process.");
     process.exit();
   });
 }
