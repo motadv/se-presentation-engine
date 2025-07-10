@@ -4,7 +4,7 @@ import { PresentationData } from "../types/rendererPresentationData.types";
 
 interface DeviceCapabilitiesRequest {
   type?: EffectType;
-  capabilities: keyof DeviceCapabilities[];
+  capabilities: { name: keyof DeviceCapabilities }[];
 }
 
 interface DeviceCapabilitiesResponse {

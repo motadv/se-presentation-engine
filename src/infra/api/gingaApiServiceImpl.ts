@@ -10,7 +10,7 @@ export class GingaApiServiceImpl implements IGingaApiService {
     ...[registerRequest]: Parameters<IGingaApiService["registerDevice"]>
   ): ReturnType<IGingaApiService["registerDevice"]> {
     const response = await fetch(
-      `http://${this.host}:${this.port}/dtv/remote-device`,
+      `http://${this.host}:${this.port}/tv3/remote-device`,
       {
         method: "POST",
         headers: {
@@ -19,6 +19,8 @@ export class GingaApiServiceImpl implements IGingaApiService {
         body: JSON.stringify(registerRequest),
       }
     );
+
+    console.log("GINGA API Response:", JSON.stringify(response, null, 2));
 
     if (!response.ok) {
       throw new Error(

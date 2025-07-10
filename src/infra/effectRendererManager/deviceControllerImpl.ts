@@ -26,15 +26,15 @@ export class DeviceControllerImpl
 
     if (devices.length === 0) {
       console.warn(
-        `No devices found for effect type ${data.effectType}.\nSupported types: ${this.getSupportedTypes().join(
+        `No devices found for effect type ${data.effectType}.\nSupported types: [${this.getSupportedTypes().join(
           ", "
-        )}`
+        )}]`
       );
       return;
     }
 
     devices.forEach(async (device) => {
-      await device.handleCommand(data.action, data.properties);
+      await device.handleCommand(data.action, data.properties || []);
     });
   }
 

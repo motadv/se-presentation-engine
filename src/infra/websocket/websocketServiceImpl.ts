@@ -8,7 +8,7 @@ export class WebSocketServiceImpl
   implements IWebSocketService, Observer<EffectType[]>
 {
   private socket: WebSocket | null = null;
-  private messageCallback: ((message: string) => void) | null = null;
+  private messageCallback: ((message: object) => void) | null = null;
 
   connect(url: string): void {
     this.socket = new WebSocket(url);
@@ -41,7 +41,7 @@ export class WebSocketServiceImpl
     }
   }
 
-  onMessage(callback: (message: string) => void): void {
+  onMessage(callback: (message: object) => void): void {
     this.messageCallback = callback;
   }
 

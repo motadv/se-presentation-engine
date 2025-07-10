@@ -8,7 +8,9 @@
     "start": "NODE_ENV=production node dist/app.ts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "format": "prettier --write src/**/*.ts"
+    "format": "prettier --write src/**/*.ts",
+    "test:yeelight": "NODE_ENV=development ts-node src/tests/yeelight.test.ts",
+    "test:moodo": "NODE_ENV=development ts-node src/tests/moodo.test.ts"
   },
   "keywords": [],
   "author": "",

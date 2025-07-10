@@ -1,6 +1,6 @@
 import { IGingaApiService } from "../../domain/api/gingaApiService.interface";
 import { RegisterDeviceRequest } from "../../domain/api/httpMessages.interface";
-import { debug } from "../../utils/debugConsole";
+import debug from "../../utils/debugConsole";
 
 export class RegisterSepeToGinga {
   constructor(private gingaApiService: IGingaApiService) {}

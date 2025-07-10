@@ -4,5 +4,5 @@ import { EffectType, Property } from "./effectTypes.types";
 export type PresentationData = {
   effectType: EffectType;
   action: ActionType;
-  properties: Property[];
+  properties?: Property[];
 };
