@@ -46,7 +46,7 @@ export class HttpLightAdapter implements IEffectRenderer {
   }
 
   private async setProperties(properties: Property[]) {
-    const brightness = properties.find((p) => p.name === "intensityValue");
+    const brightness = properties.find((p) => p.name === "intensity");
     const color = properties.find((p) => p.name === "color");
     const frequency = properties.find((p) => p.name === "frequency");
 

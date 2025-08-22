@@ -43,7 +43,7 @@ async function testYeelightConnection() {
     action: "start",
     properties: [
       { name: "color", value: "#0000FF" }, // Azul
-      { name: "intensityValue", value: 75 },
+      { name: "intensity", value: 75 },
     ],
   };
   await deviceController.handleData(commandTurnOnBlue);
@@ -68,7 +68,7 @@ async function testYeelightConnection() {
     action: "set",
     properties: [
       { name: "color", value: "#00FF00" }, // Verde
-      { name: "intensityValue", value: 10 },
+      { name: "intensity", value: 10 },
     ],
   };
   await deviceController.handleData(commandSetGreen);
@@ -81,7 +81,7 @@ async function testYeelightConnection() {
     action: "set",
     properties: [
       { name: "color", value: "#00FF00" }, // Verde
-      { name: "intensityValue", value: 100 },
+      { name: "intensity", value: 100 },
     ],
   };
   await deviceController.handleData(commandSetGreenFull);

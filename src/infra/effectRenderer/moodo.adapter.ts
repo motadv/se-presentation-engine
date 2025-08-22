@@ -117,7 +117,7 @@ export class MoodoAdapter implements IEffectRenderer {
       });
       if (!response.ok) throw new Error(`Fetching boxes failed: ${response.status}`);
       const data: GetBoxesResponse = await response.json();
-      return data.boxes?.[0]?.device_key ?? null;
+      return data.boxes?.[1]?.device_key ?? null;
     } catch (error) {
       console.error("[Moodo] Error fetching device key:", error);
       return null;
@@ -141,7 +141,7 @@ export class MoodoAdapter implements IEffectRenderer {
     switch (action) {
       case "start":
       case "set":
-        const intensityProp = properties.find(p => p.name === "intensityValue");
+        const intensityProp = properties.find(p => p.name === "intensity");
         intensity = (intensityProp?.value as number) ?? 50;
         this.deviceState = "playing";
         break;

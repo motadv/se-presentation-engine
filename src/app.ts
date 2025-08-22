@@ -27,7 +27,7 @@ async function main() {
   // const mockHttpLight = new HttpLightAdapter("http://localhost:3000");
   // deviceController.registerDevice(mockHttpLight);
 
-  const yeelightAdapter = new YeelightAdapter("192.168.1.10");
+  const yeelightAdapter = new YeelightAdapter("192.168.0.179");
   deviceController.registerDevice(yeelightAdapter);
   
   const moodoAdapter = new MoodoAdapter(

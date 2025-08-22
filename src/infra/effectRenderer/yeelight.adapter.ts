@@ -199,7 +199,7 @@ export class YeelightAdapter implements IEffectRenderer {
   private async setProperties(properties: Property[]) {
     for (const prop of properties) {
       switch (prop.name) {
-        case "intensityValue": // Mapeado para 'brightness'
+        case "intensity": // Mapeado para 'brightness'
           await this.setBrightness(prop.value as number);
           break;
         case "color":
