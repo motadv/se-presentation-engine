@@ -10,7 +10,10 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write src/**/*.ts",
     "test:yeelight": "NODE_ENV=development ts-node src/tests/yeelight.test.ts",
-    "test:moodo": "NODE_ENV=development ts-node src/tests/moodo.test.ts"
+    "test:moodo": "NODE_ENV=development ts-node src/tests/moodo.test.ts",
+    "test:location": "NODE_ENV=development ts-node src/tests/location.test.ts",
+    "test:fan": "NODE_ENV=development ts-node src/tests/mifan.test.ts"
+
   },
   "keywords": [],
   "author": "",

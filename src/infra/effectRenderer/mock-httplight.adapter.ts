@@ -1,8 +1,9 @@
 import { IEffectRenderer } from "../../domain/interfaces/EffectRenderer.interface";
 import { DeviceCapabilities } from "../../domain/types/device.types";
 import {
-  ColorValue,
+  Color,
   EffectType,
+  Location,
   Property,
 } from "../../domain/types/effectTypes.types";
 import { v4 as uuidv4 } from "uuid";
@@ -12,10 +13,19 @@ export class HttpLightAdapter implements IEffectRenderer {
   supportedTypes: EffectType[] = [];
   capabilities: DeviceCapabilities[];
 
-  constructor(private readonly url: string) {
-    this.id = uuidv4();
+  constructor(
+    private readonly url: string,
+    location: Location = "*:*:*",
+    id: string
+  ) {
+    this.id = id;
     this.capabilities = [
-      { effectType: "LightType", preparationTime: 0, state: "idle" },
+      {
+        effectType: "LightType",
+        preparationTime: 0,
+        state: "idle",
+        location: location,
+      },
     ];
 
     this.updateSupportedTypes();
@@ -46,7 +56,7 @@ export class HttpLightAdapter implements IEffectRenderer {
   }
 
   private async setProperties(properties: Property[]) {
-    const brightness = properties.find((p) => p.name === "intensity");
+    const brightness = properties.find((p) => p.name === "intensityValue");
     const color = properties.find((p) => p.name === "color");
     const frequency = properties.find((p) => p.name === "frequency");
 
@@ -58,22 +68,22 @@ export class HttpLightAdapter implements IEffectRenderer {
   }
 
   private turnOn() {
-    console.log(`Sending request to ${this.url}/on`);
+    console.log(`[${this.id}]Sending request to ${this.url}/on`);
   }
 
   private turnOff() {
-    console.log(`Sending request to ${this.url}/off`);
+    console.log(`[${this.id}]Sending request to ${this.url}/off`);
   }
 
   private setBrightness(value: number) {
-    console.log(`Setting brightness to ${value} at ${this.url}/brightness`);
+    console.log(`[${this.id}]Setting brightness to ${value} at ${this.url}/brightness`);
   }
 
-  private setColor(value: ColorValue) {
-    console.log(`Setting color to ${value} at ${this.url}/color`);
+  private setColor(value: Color) {
+    console.log(`[${this.id}]Setting color to ${value} at ${this.url}/color`);
   }
 
   private setFrequency(value: number) {
-    console.log(`Setting frequency to ${value} at ${this.url}/frequency`);
+    console.log(`[${this.id}]Setting frequency to ${value} at ${this.url}/frequency`);
   }
 }

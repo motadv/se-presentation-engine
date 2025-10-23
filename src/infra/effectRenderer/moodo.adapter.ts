@@ -4,7 +4,7 @@ import {
   DeviceCapabilities,
   DeviceState,
 } from "../../domain/types/device.types";
-import { EffectType, Property } from "../../domain/types/effectTypes.types";
+import { EffectType, Location, Property } from "../../domain/types/effectTypes.types";
 import { v4 as uuidv4 } from "uuid";
 
 // Types for the Moodo API responses
@@ -33,13 +33,13 @@ export class MoodoAdapter implements IEffectRenderer {
   private deviceKey: number | null = null; // This will store the box 'id'
   private deviceState: DeviceState = "idle";
 
-  constructor(email: string, password: string) {
+  constructor(email: string, password: string, location: Location = "*:*:*") {
     this.id = uuidv4();
     this.capabilities = [
       {
         effectType: "ScentType",
         state: this.deviceState,
-        locator: `moodo://${this.id}`,
+        location: location,
         preparationTime: 5000, // 5 seconds to prepare
       },
     ];
@@ -141,7 +141,7 @@ export class MoodoAdapter implements IEffectRenderer {
     switch (action) {
       case "start":
       case "set":
-        const intensityProp = properties.find(p => p.name === "intensity");
+        const intensityProp = properties.find(p => p.name === "intensityValue");
         intensity = (intensityProp?.value as number) ?? 50;
         this.deviceState = "playing";
         break;

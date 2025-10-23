@@ -6,7 +6,9 @@ import {
 import {
   EffectType,
   Property,
-  ColorValue,
+  Color,
+  MPEGV,
+  Location,
 } from "../../domain/types/effectTypes.types";
 import { v4 as uuidv4 } from "uuid";
 import * as net from "net";
@@ -41,7 +43,7 @@ export class YeelightAdapter implements IEffectRenderer {
   private deviceIp: string;
   private devicePort: number;
 
-  constructor(ip: string, port: number = 55443) {
+  constructor(ip: string, port: number = 55443, location: Location = "*:*:*") {
     this.id = uuidv4();
     this.deviceIp = ip;
     this.devicePort = port;
@@ -50,7 +52,7 @@ export class YeelightAdapter implements IEffectRenderer {
       {
         effectType: "LightType",
         state: this.deviceState,
-        locator: `yeelight://${this.deviceIp}:${this.devicePort}`,
+        location: location,
       },
     ];
 
@@ -199,11 +201,11 @@ export class YeelightAdapter implements IEffectRenderer {
   private async setProperties(properties: Property[]) {
     for (const prop of properties) {
       switch (prop.name) {
-        case "intensity": // Mapeado para 'brightness'
+        case "intensityValue": // Mapeado para 'brightness'
           await this.setBrightness(prop.value as number);
           break;
         case "color":
-          await this.setColor(prop.value as ColorValue);
+          await this.setColor(prop.value as Color);
           break;
         // Outras propriedades como 'frequency' não são diretamente suportadas pela Yeelight
         // mas podem ser simuladas com 'start_cf' (color flow).
@@ -217,7 +219,7 @@ export class YeelightAdapter implements IEffectRenderer {
     await this.sendCommand("set_bright", [brightness, "smooth", 500]);
   }
 
-  private async setColor(value: ColorValue) {
+  private async setColor(value: Color) {
     let r: number, g: number, b: number;
 
     if (typeof value === "string" && value.startsWith("#")) {

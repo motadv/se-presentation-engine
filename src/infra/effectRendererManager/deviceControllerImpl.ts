@@ -2,7 +2,7 @@ import { IDeviceController } from "../../domain/interfaces/DeviceController.inte
 import { IDeviceRegistry } from "../../domain/interfaces/DeviceRegistry.interface";
 import { IEffectRenderer } from "../../domain/interfaces/EffectRenderer.interface";
 import { DeviceCapabilities } from "../../domain/types/device.types";
-import { EffectType } from "../../domain/types/effectTypes.types";
+import { EffectType, MPEGV } from "../../domain/types/effectTypes.types";
 import { PresentationData } from "../../domain/types/rendererPresentationData.types";
 import { Observable, Observer } from "../Pattern/ObserverController";
 
@@ -22,15 +22,19 @@ export class DeviceControllerImpl
   }
 
   async handleData(data: PresentationData): Promise<void> {
-    const devices = this.deviceRegistry.getDevicesByType(data.effectType);
+    const dataLocation = data.properties?.find(
+      (prop) => prop.name === "location"
+    );
 
-    if (devices.length === 0) {
-      console.warn(
-        `No devices found for effect type ${data.effectType}.\nSupported types: [${this.getSupportedTypes().join(
-          ", "
-        )}]`
-      );
-      return;
+    let devices;
+
+    if(dataLocation && typeof dataLocation.value === "string") {
+      devices = this.deviceRegistry.getDeviceByTypeAndLocation(
+        data.effectType,
+        dataLocation.value
+      )
+    } else {
+      devices = this.deviceRegistry.getDevicesByType(data.effectType);
     }
 
     devices.forEach(async (device) => {

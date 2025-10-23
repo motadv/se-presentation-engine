@@ -48,7 +48,7 @@ export class WebSocketLightAdapter implements IEffectRenderer {
       this.turnOff();
     }
     if (action === "set") {
-      const brightness = properties.find((p) => p.name === "intensity");
+      const brightness = properties.find((p) => p.name === "intensityValue");
       const color = properties.find((p) => p.name === "color");
       const frequency = properties.find((p) => p.name === "frequency");
 

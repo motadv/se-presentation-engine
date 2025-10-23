@@ -39,7 +39,7 @@ async function testMoodoConnection() {
   const commandTurnOn: PresentationData = {
     effectType: "ScentType",
     action: "start",
-    properties: [{ name: "intensity", value: 50 }],
+    properties: [{ name: "intensityValue", value: 50 }],
   };
   await deviceController.handleData(commandTurnOn);
   debug("Command: START with 50% intensity sent.");
@@ -49,7 +49,7 @@ async function testMoodoConnection() {
   const commandSetFull: PresentationData = {
     effectType: "ScentType",
     action: "set",
-    properties: [{ name: "intensity", value: 100 }],
+    properties: [{ name: "intensityValue", value: 100 }],
   };
   await deviceController.handleData(commandSetFull);
   debug("Command: SET intensity to 100% sent.");
@@ -59,7 +59,7 @@ async function testMoodoConnection() {
   const commandSetLow: PresentationData = {
     effectType: "ScentType",
     action: "set",
-    properties: [{ name: "intensity", value: 20 }],
+    properties: [{ name: "intensityValue", value: 20 }],
   };
   await deviceController.handleData(commandSetLow);
   debug("Command: SET intensity to 20% sent.");

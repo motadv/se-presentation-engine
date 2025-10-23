@@ -13,6 +13,7 @@ import {
 } from "./domain/websocket/wsMessages.interface";
 import { YeelightAdapter } from "./infra/effectRenderer/yeelight.adapter";
 import { MoodoAdapter } from "./infra/effectRenderer/moodo.adapter";
+import { HttpLightAdapter } from "./infra/effectRenderer/mock-httplight.adapter";
 
 async function main() {
   const baseURL = process.env.HOST || "localhost";
@@ -24,11 +25,13 @@ async function main() {
 
   // Start the SEPE Client and connect Renderers
 
-  // const mockHttpLight = new HttpLightAdapter("http://localhost:3000");
-  // deviceController.registerDevice(mockHttpLight);
+  const rightHttpLight = new HttpLightAdapter("http://localhost:3000", "right:*:*", "RightLight");
+  const leftHttpLight = new HttpLightAdapter("http://localhost:3000", "left:*:*", "LeftLight");
+  deviceController.registerDevice(rightHttpLight);
+  deviceController.registerDevice(leftHttpLight);
 
-  const yeelightAdapter = new YeelightAdapter("192.168.0.179");
-  deviceController.registerDevice(yeelightAdapter);
+  // const yeelightAdapter = new YeelightAdapter("192.168.0.179");
+  // deviceController.registerDevice(yeelightAdapter);
   
   const moodoAdapter = new MoodoAdapter(
     "rmsodre@id.uff.br",

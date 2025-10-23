@@ -1,0 +1,6 @@
+É preciso usar o log do app Mi Home na versão 5.4.49 para pegar o token do ventilador antes de usar o adaptador
+ip: 192.168.1.23
+token: 6ac9ae4867729bd70b5832ff65a82fc6
+
+address: '192.168.1.23',
+token: '6ac9ae4867729bd70b5832ff65a82fc6',

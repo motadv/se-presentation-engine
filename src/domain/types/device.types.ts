@@ -1,4 +1,4 @@
-import { EffectType } from "./effectTypes.types";
+import { EffectType, Location } from "./effectTypes.types";
 
 export type DeviceState =
   | "preparing"
@@ -10,6 +10,6 @@ export type DeviceState =
 export type DeviceCapabilities = {
   effectType: EffectType;
   state: DeviceState;
-  locator?: string;
+  location?: Location;
   preparationTime?: number;
 };
