@@ -25,19 +25,19 @@ async function main() {
 
   // Start the SEPE Client and connect Renderers
 
-  const rightHttpLight = new HttpLightAdapter("http://localhost:3000", "right:*:*", "RightLight");
-  const leftHttpLight = new HttpLightAdapter("http://localhost:3000", "left:*:*", "LeftLight");
-  deviceController.registerDevice(rightHttpLight);
-  deviceController.registerDevice(leftHttpLight);
+  // const rightHttpLight = new HttpLightAdapter("http://localhost:3000", "right:*:*", "RightLight");
+  // const leftHttpLight = new HttpLightAdapter("http://localhost:3000", "left:*:*", "LeftLight");
+  // deviceController.registerDevice(rightHttpLight);
+  // deviceController.registerDevice(leftHttpLight);
 
-  // const yeelightAdapter = new YeelightAdapter("192.168.0.179");
-  // deviceController.registerDevice(yeelightAdapter);
+  const yeelightAdapter = new YeelightAdapter("192.168.68.101");
+  deviceController.registerDevice(yeelightAdapter);
   
-  const moodoAdapter = new MoodoAdapter(
-    "rmsodre@id.uff.br",
-    "moodormsodre"
-  );
-  deviceController.registerDevice(moodoAdapter);
+  // const moodoAdapter = new MoodoAdapter(
+    // "rmsodre@id.uff.br",
+    // "moodormsodre"
+  // );
+  // deviceController.registerDevice(moodoAdapter);
 
   debug("Registered devices to SEPE.");
 
